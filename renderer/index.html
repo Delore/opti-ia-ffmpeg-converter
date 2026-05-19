@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ópti.IA FFmpeg Converter</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <main class="app-shell">
+        <section class="converter-panel" aria-labelledby="page-title">
+            <div class="header">
+                <div>
+                    <p class="eyebrow">FFmpeg Converter</p>
+                    <h1 id="page-title">Converter vídeo para MP4 leve</h1>
+                </div>
+                <span class="format-badge">H.264 · 540px · 24 fps</span>
+            </div>
+
+            <label class="drop-zone" id="dropZone" for="videoFile">
+                <input id="videoFile" type="file" accept="video/*,.mov,.mp4,.m4v,.avi,.mkv">
+                <span class="drop-icon" aria-hidden="true">+</span>
+                <span class="drop-title">Selecionar vídeo</span>
+                <span class="drop-subtitle" id="fileStatus">MOV, MP4, AVI ou MKV</span>
+            </label>
+
+            <div class="file-card hidden" id="fileCard">
+                <div class="file-info">
+                    <span class="file-label">Arquivo</span>
+                    <strong id="fileName"></strong>
+                    <small id="fileMeta"></small>
+                </div>
+                <button class="ghost-button" id="changeFileButton" type="button">Trocar</button>
+            </div>
+
+            <div class="progress-area" aria-live="polite">
+                <div class="progress-header">
+                    <span id="progressMessage">Aguardando arquivo</span>
+                    <strong id="progressValue">0%</strong>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="primary-button" id="convertButton" type="button" disabled>Converter</button>
+                <button class="secondary-button hidden" id="downloadButton" type="button">Salvar MP4</button>
+            </div>
+
+            <p class="feedback" id="feedback" role="status"></p>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
