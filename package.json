@@ -13,16 +13,17 @@
         "prepare:ffmpeg:win": "node scripts/rebuild-ffmpeg.js win32 x64",
         "dist:mac": "npm run prepare:ffmpeg:mac && electron-builder build --mac --arm64 --publish never",
         "dist:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish never",
-        "deploy": "npm run deploy:win",
+        "deploy": "npm run deploy:mac && npm run deploy:win",
+        "deploy:mac": "npm run prepare:ffmpeg:mac && electron-builder build --mac --arm64 --publish always",
         "deploy:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish always"
     },
     "author": "Ópti.IA",
     "build": {
         "publish": [
             {
-                "url": "https://github.com/Delore/opti-ia-ffmpeg-converter.git",
                 "provider": "github",
-                "token": "${GH_TOKEN}"
+                "owner": "Delore",
+                "repo": "opti-ia-ffmpeg-converter"
             }
         ],
         "appId": "com.opti.ia.ffmpeg-converter",
