@@ -2,12 +2,7 @@ const { spawnSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const [platform, arch] = process.argv.slice(2);
-
-if (!platform || !arch) {
-    console.error('Usage: node scripts/rebuild-ffmpeg.js <platform> <arch>');
-    process.exit(1);
-}
+const [targetPlatform = process.platform, targetArch = process.arch] = process.argv.slice(2);
 
 const installScript = path.join(__dirname, '..', 'node_modules', 'ffmpeg-static', 'install.js');
 const ffmpegStaticDir = path.dirname(installScript);
@@ -17,14 +12,14 @@ if (!fs.existsSync(installScript)) {
     process.exit(1);
 }
 
-removeStaleBinaries(ffmpegStaticDir, platform);
+removeStaleBinaries(ffmpegStaticDir, targetPlatform);
 
 const result = spawnSync(process.execPath, [installScript], {
     stdio: 'inherit',
     env: {
         ...process.env,
-        npm_config_platform: platform,
-        npm_config_arch: arch
+        npm_config_platform: targetPlatform,
+        npm_config_arch: targetArch
     }
 });
 

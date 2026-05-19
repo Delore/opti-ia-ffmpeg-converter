@@ -145,7 +145,12 @@ function convertVideo({ event, jobId, inputPath, outputPath }) {
 
         const args = ['-y', '-i', inputPath, '-vf', "scale='min(540,iw)':-2,fps=24", '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.0', '-c:a', 'aac', '-b:a', '64k', '-ar', '44100', '-movflags', '+faststart', outputPath];
 
-        sendProgress(event, jobId, 0, 'Preparing conversion...');
+        sendProgress(event, jobId, 0, 'Preparando conversão...');
+
+        if (!ffmpegPath || !fs.existsSync(ffmpegPath)) {
+            reject(new Error('FFmpeg não encontrado. Execute npm start novamente para preparar o binário da plataforma atual.'));
+            return;
+        }
 
         const ffmpeg = spawn(ffmpegPath, args);
         let errorOutput = '';

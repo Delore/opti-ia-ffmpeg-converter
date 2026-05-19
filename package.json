@@ -4,6 +4,7 @@
     "description": "Ópti.IA FFmpeg Converter",
     "main": "main.js",
     "scripts": {
+        "prestart": "node scripts/rebuild-ffmpeg.js",
         "start": "electron . --dev",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "node-gyp rebuild",

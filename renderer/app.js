@@ -123,7 +123,7 @@ function setBusy(isBusy) {
     changeFileButton.disabled = isBusy;
     fileInput.disabled = isBusy;
     dropZone.style.pointerEvents = isBusy ? 'none' : '';
-    convertButton.textContent = isBusy ? 'Convertendo...' : 'Converter.';
+    convertButton.textContent = isBusy ? 'Convertendo...' : 'Converter vídeo';
 }
 
 function updateProgress(progress, message) {

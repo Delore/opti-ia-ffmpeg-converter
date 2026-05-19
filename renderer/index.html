@@ -8,29 +8,38 @@
 </head>
 <body>
     <main class="app-shell">
-        <section class="converter-panel" aria-labelledby="page-title">
-            <div class="header">
-                <div>
-                    <p class="eyebrow">FFmpeg Converter</p>
-                    <h1 id="page-title">Converter vídeo para MP4 leve</h1>
-                </div>
-                <span class="format-badge">H.264 · 540px · 24 fps</span>
-            </div>
+        <header class="topbar">
+            <img class="brand-logo" src="./logo.png" alt="Ópti.IA">
+            <button class="menu-button" type="button" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <section class="hero" aria-labelledby="page-title">
+            <p class="eyebrow">Conversor FFmpeg</p>
+            <h1 id="page-title">Seu vídeo grande rodando em <span>MP4 leve.</span></h1>
+            <p class="intro">Converta MOV, MP4, AVI ou MKV para um arquivo otimizado em H.264, 540px, 24 fps e pronto para compartilhar.</p>
 
             <label class="drop-zone" id="dropZone" for="videoFile">
                 <input id="videoFile" type="file" accept="video/*,.mov,.mp4,.m4v,.avi,.mkv">
-                <span class="drop-icon" aria-hidden="true">+</span>
                 <span class="drop-title">Selecionar vídeo</span>
-                <span class="drop-subtitle" id="fileStatus">MOV, MP4, AVI ou MKV</span>
+                <span class="drop-subtitle" id="fileStatus">Arraste o arquivo aqui ou clique para escolher</span>
             </label>
 
             <div class="file-card hidden" id="fileCard">
                 <div class="file-info">
-                    <span class="file-label">Arquivo</span>
+                    <span class="file-label">Arquivo selecionado</span>
                     <strong id="fileName"></strong>
                     <small id="fileMeta"></small>
                 </div>
                 <button class="ghost-button" id="changeFileButton" type="button">Trocar</button>
+            </div>
+
+            <div class="actions">
+                <button class="primary-button" id="convertButton" type="button" disabled>Converter vídeo</button>
+                <button class="secondary-button hidden" id="downloadButton" type="button">Salvar MP4</button>
             </div>
 
             <div class="progress-area" aria-live="polite">
@@ -43,12 +52,13 @@
                 </div>
             </div>
 
-            <div class="actions">
-                <button class="primary-button" id="convertButton" type="button" disabled>Converter</button>
-                <button class="secondary-button hidden" id="downloadButton" type="button">Salvar MP4</button>
-            </div>
-
             <p class="feedback" id="feedback" role="status"></p>
+
+            <div class="trust-row" aria-label="Características">
+                <span>H.264 otimizado</span>
+                <span>Áudio AAC 64k</span>
+                <span>Fast start</span>
+            </div>
         </section>
     </main>
 
