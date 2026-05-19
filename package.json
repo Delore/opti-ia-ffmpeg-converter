@@ -1,83 +1,85 @@
 {
-  "name": "opti.ia-ffmpeg-converter",
-  "version": "1.0.44",
-  "description": "Ópti.IA FFmpeg Converter",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron . --dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node-gyp rebuild",
-    "pack": "electron-builder --dir",
-    "dist": "npm run dist:win",
-    "prepare:ffmpeg:mac": "node scripts/rebuild-ffmpeg.js darwin arm64",
-    "prepare:ffmpeg:win": "node scripts/rebuild-ffmpeg.js win32 x64",
-    "dist:mac": "npm run prepare:ffmpeg:mac && electron-builder build --mac --arm64 --publish never",
-    "dist:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish never",
-    "deploy": "npm run deploy:win",
-    "deploy:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish always"
-  },
-  "author": "Ópti.IA",
-  "build": {
-    "publish": [
-      {
-        "provider": "github"
-      }
-    ],
-    "appId": "com.opti.ia.ffmpeg-converter",
-    "productName": "Ópti.IA FFmpeg Converter",
-    "copyright": "Copyright © 2026 Ópti.IA",
-    "artifactName": "opti.ia-ffmpeg-converter_${version}.${ext}",
-    "asarUnpack": [
-      "node_modules/ffmpeg-static/**/*"
-    ],
-    "directories": {
-      "buildResources": "dist",
-      "output": "build"
+    "name": "opti.ia-ffmpeg-converter",
+    "version": "1.0.44",
+    "description": "Ópti.IA FFmpeg Converter",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron . --dev",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "node-gyp rebuild",
+        "pack": "electron-builder --dir",
+        "dist": "npm run dist:win",
+        "prepare:ffmpeg:mac": "node scripts/rebuild-ffmpeg.js darwin arm64",
+        "prepare:ffmpeg:win": "node scripts/rebuild-ffmpeg.js win32 x64",
+        "dist:mac": "npm run prepare:ffmpeg:mac && electron-builder build --mac --arm64 --publish never",
+        "dist:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish never",
+        "deploy": "npm run deploy:win",
+        "deploy:win": "npm run prepare:ffmpeg:win && electron-builder build --win --x64 --publish always"
     },
-    "files": [
-      "./dist/**/*",
-      "./renderer/**/*",
-      "./preload.js",
-      "./main.js"
-    ],
-    "mac": {
-      "category": "public.app-category.utilities",
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "arm64"
-          ]
+    "author": "Ópti.IA",
+    "build": {
+        "publish": [
+            {
+                "url": "https://github.com/Delore/opti-ia-ffmpeg-converter.git",
+                "provider": "github",
+                "token": "${GH_TOKEN}"
+            }
+        ],
+        "appId": "com.opti.ia.ffmpeg-converter",
+        "productName": "Ópti.IA FFmpeg Converter",
+        "copyright": "Copyright © 2026 Ópti.IA",
+        "artifactName": "opti.ia-ffmpeg-converter_${version}.${ext}",
+        "asarUnpack": [
+            "node_modules/ffmpeg-static/**/*"
+        ],
+        "directories": {
+            "buildResources": "dist",
+            "output": "build"
+        },
+        "files": [
+            "./dist/**/*",
+            "./renderer/**/*",
+            "./preload.js",
+            "./main.js"
+        ],
+        "mac": {
+            "category": "public.app-category.utilities",
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "arm64"
+                    ]
+                }
+            ],
+            "icon": "./dist/img/web_hi_res_512_1024x1024.icns",
+            "identity": null
+        },
+        "dmg": {
+            "icon": "./dist/img/web_hi_res_512_1024x1024.icns",
+            "title": "${productName}",
+            "window": {
+                "width": "680",
+                "height": "400"
+            }
+        },
+        "win": {
+            "target": "nsis",
+            "icon": "./dist/img/logo.ico"
+        },
+        "nsis": {
+            "oneClick": true,
+            "installerIcon": "./dist/img/logo.ico",
+            "installerHeaderIcon": "./dist/img/logo.ico",
+            "deleteAppDataOnUninstall": true
         }
-      ],
-      "icon": "./dist/img/web_hi_res_512_1024x1024.icns",
-      "identity": null
     },
-    "dmg": {
-      "icon": "./dist/img/web_hi_res_512_1024x1024.icns",
-      "title": "${productName}",
-      "window": {
-        "width": "680",
-        "height": "400"
-      }
+    "dependencies": {
+        "electron-updater": "^5.3.0",
+        "ffmpeg-static": "^5.2.1"
     },
-    "win": {
-      "target": "nsis",
-      "icon": "./dist/img/logo.ico"
-    },
-    "nsis": {
-      "oneClick": true,
-      "installerIcon": "./dist/img/logo.ico",
-      "installerHeaderIcon": "./dist/img/logo.ico",
-      "deleteAppDataOnUninstall": true
+    "devDependencies": {
+        "electron": "^22.0.2",
+        "electron-builder": "^25.1.8"
     }
-  },
-  "dependencies": {
-    "electron-updater": "^5.3.0",
-    "ffmpeg-static": "^5.2.1"
-  },
-  "devDependencies": {
-    "electron": "^22.0.2",
-    "electron-builder": "^25.1.8"
-  }
 }
