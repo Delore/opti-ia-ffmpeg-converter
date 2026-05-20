@@ -4,7 +4,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const ffmpegPath = require('ffmpeg-static');
+const ffmpegStaticPath = require('ffmpeg-static');
 
 let mainWindow = null;
 const convertedFiles = new Map();
@@ -147,8 +147,10 @@ function convertVideo({ event, jobId, inputPath, outputPath }) {
 
         sendProgress(event, jobId, 0, 'Preparando conversão...');
 
-        if (!ffmpegPath || !fs.existsSync(ffmpegPath)) {
-            reject(new Error('FFmpeg não encontrado. Execute npm start novamente para preparar o binário da plataforma atual.'));
+        const ffmpegPath = getFfmpegExecutablePath();
+
+        if (!ffmpegPath) {
+            reject(new Error('FFmpeg não encontrado no pacote do app.'));
             return;
         }
 
@@ -220,6 +222,31 @@ function getReadableFfmpegError(errorOutput) {
         .filter(Boolean);
 
     return lines.slice(-4).join('\n') || 'A conversão falhou.';
+}
+
+function getFfmpegExecutablePath() {
+    const binaryName = process.platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg';
+    const candidates = [];
+
+    if (app.isPackaged) {
+        candidates.push(path.join(process.resourcesPath, 'app.asar.unpacked', 'node_modules', 'ffmpeg-static', binaryName));
+    }
+
+    if (ffmpegStaticPath) {
+        if (ffmpegStaticPath.includes('app.asar')) {
+            candidates.push(ffmpegStaticPath.replace('app.asar', 'app.asar.unpacked'));
+        }
+
+        candidates.push(ffmpegStaticPath);
+    }
+
+    for (const candidate of candidates) {
+        if (candidate && fs.existsSync(candidate)) {
+            return candidate;
+        }
+    }
+
+    return null;
 }
 
 function isDev() {
