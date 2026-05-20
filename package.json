@@ -1,6 +1,6 @@
 {
     "name": "opti.ia-ffmpeg-converter",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Ópti.IA FFmpeg Converter",
     "main": "main.js",
     "scripts": {
